@@ -23,6 +23,7 @@ export class AppComponent {
   }
 
   initializeGrid(){    
+      console.log('init grid', Object.keys(this.grid));
     for(let i = 0; i < Object.keys(this.grid).length; i++){
       for(let j = 0; j < 4; j++){
         let tile = {x: i, y: j, value: 1, index: j};

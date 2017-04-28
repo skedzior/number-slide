@@ -9,51 +9,77 @@ import { Component } from '@angular/core';
   styleUrls: ['app.component.css']
 })
 export class AppComponent {
-  
-    SWIPE_ACTION = { LEFT: 'swipeleft', RIGHT: 'swiperight' };
+  grid = {
+    0: [],
+    1: [],
+    2: [],
+    3: []
+  };
 
-    avatars = [
-        {
-            name: 'kristy',
-            image: 'http://semantic-ui.com/images/avatar2/large/kristy.png',
-            visible: true
-        },
-        {
-            name: 'matthew',
-            image: 'http://semantic-ui.com/images/avatar2/large/matthew.png',
-            visible: false
-        },
-        {
-            name: 'chris',
-            image: 'http://semantic-ui.com/images/avatar/large/chris.jpg',
-            visible: false
-        },
-        {
-            name: 'jenny',
-            image: 'http://semantic-ui.com/images/avatar/large/jenny.jpg',
-            visible: false
-        }
-    ];
-    
-    swipe(currentIndex: number, action: number = this.SWIPE_ACTION.RIGHT) {
-        console.log(currentIndex);
-        if (currentIndex > this.avatars.length || currentIndex < 0) return;
+  SWIPE_ACTION = { LEFT: 'swipeleft', RIGHT: 'swiperight', UP: 'swipeup', DOWN: 'swipedown' };
 
-        let nextIndex = 0;
-        
-        // next
-        if (action === this.SWIPE_ACTION.RIGHT) {
-            const isLast = currentIndex === this.avatars.length - 1;
-            nextIndex = isLast ? 0 : currentIndex + 1;
-        }
+  constructor() {    
+    this.initializeGrid();  
+  }
 
-        // previous
-        if (action === this.SWIPE_ACTION.LEFT) {
-            const isFirst = currentIndex === 0;
-            nextIndex = isFirst ? this.avatars.length - 1 : currentIndex - 1;
-        }
-
-        // toggle avatar visibility
-        this.avatars.forEach((x, i) => x.visible = (i === nextIndex));
+  initializeGrid(){    
+    for(let i = 0; i < Object.keys(this.grid).length; i++){
+      for(let j = 0; j < 4; j++){
+        let tile = {x: i, y: j, value: 1, index: j};
+        this.grid[i].push(tile);
+      }      
     }
+    
+  }
+
+  shiftTilesUp(col, tile){
+    if(this.grid[col][tile.index - 1].value == tile.value){      
+      this.grid[col][tile.index - 1].value += 1;
+
+      for(let i = tile.index; i < 3; i++){
+        console.log('tile indx', i);
+        this.grid[col][i].value = this.grid[col][i + 1].value;
+      }
+      this.grid[col][3].value = Math.ceil(Math.random() * 2);
+    }
+  }
+
+  shiftTilesDown(col, tile){
+    if(this.grid[col][tile.index + 1].value == tile.value){      
+      this.grid[col][tile.index + 1].value += 1;
+
+      for(let i = tile.index; i > 0; i--){
+        console.log('tile indx', i);
+        this.grid[col][i].value = this.grid[col][i - 1].value;
+      }
+      this.grid[col][0].value = Math.ceil(Math.random() * 2);
+    }
+  }
+
+  shiftTilesLeft(col, tile){
+    let _col = parseInt(col);
+    if(this.grid[_col - 1][tile.index].value == tile.value){      
+      this.grid[_col - 1][tile.index].value += 1;
+
+      for(let i = _col; i < 3; i++){
+        console.log('col indx', i);
+        this.grid[i][tile.index].value = this.grid[i + 1][tile.index].value;
+      }
+      this.grid[3][tile.index].value = Math.ceil(Math.random() * 2);
+    }
+  }
+
+  shiftTilesRight(col, tile){
+    let _col = parseInt(col);
+    if(this.grid[_col + 1][tile.index].value == tile.value){
+      
+      this.grid[_col + 1][tile.index].value += 1;
+
+      for(let i = 0; i < _col; i++){
+        console.log('col indx', i);
+        this.grid[_col - i][tile.index].value = this.grid[_col - i - 1][tile.index].value;
+      }
+      this.grid[0][tile.index].value = Math.ceil(Math.random() * 2);
+    }
+  }
 }

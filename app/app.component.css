@@ -1,24 +1,50 @@
-.swipe-box {
-    display: block;
+#gameGrid {
+    width: 410px;
+    height: 400px;
+    border: solid 1px;
+    border-radius: 3px;
+}
+
+.gameRow {
     width: 100%;
-    float: left;
-    margin: 0;
-    transform: .5s ease .1s;
+    height:25%;
 }
 
-.ctn {
-    max-width: 400px;
-    margin: 0 auto;
+.gameCell {
+    height:100px;
+    width: 100px;                     
+}  
+.tile-container {
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    margin-left: 5px;
+    top: 16px;
 }
-
-.inner-ctn {
-  margin: 20px;
+.tile {
+    width: 80px;
+    text-align: center;
+    height: 80px;
+    border: 1px solid #000;
+    margin: 16px 10px;
+    line-height: 80px;
+    font-size: 42px;
+    color:#fff;
+    border-radius: 3px;
 }
+.tile-1 {background-color: #ff0065}
+.tile-2 {background-color: #c90047}
+.tile-3 {background-color: #fb5858}
+.tile-4 {background-color: #328db1}
+.tile-5 {background-color: #484848}
+.tile-6 {background-color: #00ff9a}
+.tile-7 {background-color: #00c982}
+.tile-8 {background-color: #58fbfb}
+.tile-9 {background-color: #b15632}
+.tile-10 {background-color: #6c6c6c}
 
-.visible {
-    display: block;
-}
-
-.hidden {
-    display: none;
+.Column-1, .Column-2, .Column-3, .Column-0 {
+    width: 100px;
+    height: 100%;
+    display: inline-block;
 }

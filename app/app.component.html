@@ -1,19 +1,32 @@
-<div class="ctn">
-  <div class="inner-ctn">
-    <h4 class="ui header medium center aligned">
-      Swipe Avatars with HammerJS
-      <div class="sub header">(swipe left or right)</div>
-    </h4>
-    <div class="ui card swipe-box" 
-      *ngFor="let avatar of avatars; let idx=index"
-      (swipeleft)="swipe(idx, $event.type)" (swiperight)="swipe(idx, $event.type)" 
-      [class.visible]="avatar.visible" [class.hidden]="!avatar.visible">
-      <div class="image">
-        <img [src]="avatar.image" [alt]="avatar.name">
-      </div>
-      <div class="content">
-        <a class="header">{{avatar.name}}</a>
-      </div>
+<div id="gameGrid">
+    <div class="gameRow">
+      <div class="gameCell"></div>
+      <div class="gameCell"></div>
+      <div class="gameCell"></div>
+      <div class="gameCell"></div>
+    </div>
+    <div class="gameRow">
+      <div class="gameCell"></div>
+      <div class="gameCell"></div>
+      <div class="gameCell"></div>
+      <div class="gameCell"></div>
+    </div>
+    <div class="gameRow">
+      <div class="gameCell"></div>
+      <div class="gameCell"></div>
+      <div class="gameCell"></div>
+      <div class="gameCell"></div>
+    </div>
+    <div class="gameRow">
+      <div class="gameCell"></div>
+      <div class="gameCell"></div>
+      <div class="gameCell"></div>
+      <div class="gameCell"></div>
     </div>
   </div>
-</div>
+
+  <div class="tile-container">
+    <div *ngFor="let g of arrayOfKeys" class="Column-{{g}}">
+      <div id="{{g}}-{{tile.index}}" class="tile tile-{{tile.value}}" *ngFor="let tile of grid[g]" (swipeup)="shiftTilesUp(g, tile)" (swipedown)="shiftTilesDown(g, tile)" (swipeleft)="shiftTilesLeft(g, tile)" (swiperight)="shiftTilesRight(g, tile)">{{tile?.value}}</div>
+    </div>
+  </div>
